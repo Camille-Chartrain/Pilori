@@ -1,0 +1,7 @@
+BEGIN;
+
+SET CLIENT_ENCODING TO 'UTF-8';
+
+TRUNCATE "user", "website";
+
+COMMIT;
