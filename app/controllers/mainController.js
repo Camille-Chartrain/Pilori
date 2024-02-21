@@ -2,7 +2,7 @@ import Website from "../models/Website.js";
 
 const mainController = {
 
-  home: async function (req, res) {
+  home: async function (req, res, next) {
     try {
       const websites = await Website.find3();
       console.log(websites);
@@ -11,7 +11,7 @@ const mainController = {
       });
     }
     catch (error) {
-      console.log(error.message);
+      console.error(error.message);
       res.render('error');
     };
   },

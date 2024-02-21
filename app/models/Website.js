@@ -160,9 +160,14 @@ class Website {
         `;
     const value = [slug];
     const result = await client.query(text, value);
-    const pageDetail = result.rows;
-    return pageDetail;
+    if (result.rowCount > 0) {
+      return new Website(result.rows[0]);
+    }
+    else {
+      throw new Error('Website non trouvé');
+    }
   }
+
 
 
   async update() {

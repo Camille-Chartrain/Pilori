@@ -48,7 +48,7 @@ const websiteController = {
     }
   },
 
-  details: async function (req, res, next) {
+  details: async function (req, res) {
     try {
       const website = await Website.findPage(req.params.slug);
       console.log("nous sommes dans le controller detail");
