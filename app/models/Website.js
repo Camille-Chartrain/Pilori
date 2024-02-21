@@ -24,7 +24,7 @@ class Website {
     this.device = config.device;
     this.level = config.level;
   }
-  
+
   get id() {
     return this.#id;
   }
@@ -52,7 +52,7 @@ class Website {
   get level() {
     return this.#level;
   }
-  
+
   set id(value) {
     if (typeof value !== 'number' && typeof value !== 'undefined') {
       throw new Error('Id incorrect');
@@ -106,10 +106,10 @@ class Website {
       INSERT INTO website ("title", "slug", "description", "address", "device", "level")
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id;
-    `; 
+    `;
     const values = [this.title, this.slug, this.description, this.address, this.device, this.level];
     const result = await client.query(text, values);
-    this.#id = result.rows[0].id; 
+    this.#id = result.rows[0].id;
   }
 
   static async read(id) {
@@ -126,6 +126,31 @@ class Website {
       throw new Error('Website non trouvé');
     }
   }
+
+  static async find3() {
+    // On execute notre requete SQL
+    const result = await client.query(`
+    SELECT *
+    FROM "website"
+    ORDER BY "id" DESC
+    LIMIT 3;
+    `);
+    // On recupere simplement la liste des 3 sites 
+    const websites = result.rows;
+    //result.rows donne une liste d'objets, mais qui serait modifiable sans passer par la classe plus tard,
+    // donc nous le rangeons dans un tableau en le faisant passer par la classe.
+    //maintenant nous avons un tableau d'objets privés
+
+    // Pour chaque sites, je veux creer un nouvel objet provenant de classe Websites
+    const websitesObj = [];
+    // Pour chaque agence contenu dans la bdd
+    for (const website of websites) {
+      // J'instancie un nouvel objet grace a ma classe
+      websitesObj.push(new Website(website));
+    }
+    return websitesObj;
+  }
+
 
   async update() {
     const text = `
