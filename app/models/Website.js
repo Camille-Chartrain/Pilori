@@ -151,6 +151,19 @@ class Website {
     return websitesObj;
   }
 
+  static async findPage(slug) {
+    console.log('nous sommes dans dans la methode findPage');
+    const text = `
+        SELECT * 
+        FROM "website"
+        WHERE "slug" = $1; 
+        `;
+    const value = [slug];
+    const result = await client.query(text, value);
+    const pageDetail = result.rows;
+    return pageDetail;
+  }
+
 
   async update() {
     const text = `

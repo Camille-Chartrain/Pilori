@@ -5,24 +5,28 @@
         <header class="detail-header">
           <div class="detail-intro">
             <h1 class="detail-title">
-              <%= website.title %> au pilori
+              <%= website[0].title %> au pilori
             </h1>
           </div>
         </header>
         <ul class="detail-list">
-          <% if (website.level) { %>
-            <li><span class="detail-label">Type</span> : <%= website.level %></li>
-          <% } %>
-          <% if (website.device) { %>
-           <li><span class="detail-label">Support</span> : <%= website.device %></li>
-          <% } %>
+          <% if (website[0].level) { %>
+            <li><span class="detail-label">Type</span> : <%= website[0].level %>
+            </li>
+            <% } %>
+              <% if (website[0].device) { %>
+                <li><span class="detail-label">Support</span> : <%= website[0].device %>
+                </li>
+                <% } %>
         </ul>
-        <% if (website.description) { %>
-          <p class="detail-content"><%= website.description %></p>
-        <% } %>
-        <footer class="detail-actions">
-          <a class="btn" href="<%= website.address %>" target="_blank">Voir le disfonctionnement</a>
-        </footer>
+        <% if (website[0].description) { %>
+          <p class="detail-content">
+            <%= website[0].description %>
+          </p>
+          <% } %>
+            <footer class="detail-actions">
+              <a class="btn" href="<%= website[0].address %>" target="_blank">Voir le disfonctionnement</a>
+            </footer>
       </article>
       <footer class="segment-actions">
         <a href="/tomates" class="btn">
@@ -31,4 +35,4 @@
       </footer>
     </section>
   </main>
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>

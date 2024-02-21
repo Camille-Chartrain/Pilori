@@ -3,7 +3,7 @@ import client from '../database.js';
 
 const websiteController = {
 
-  all: async function(req, res) {
+  all: async function (req, res) {
     try {
       if (req.query.keywords) {
         const filteredWebsites = await client.query('SELECT * FROM website WHERE title ILIKE $1', [`%${req.query.keywords}%`]);
@@ -27,16 +27,16 @@ const websiteController = {
           websites: websites.rows,
         });
       }
-    } catch(error) {
+    } catch (error) {
       res.status(500).render('error');
     }
   },
 
-  form: function(req, res) {
+  form: function (req, res) {
     res.render('add-site');
   },
 
-  formAction: async function(req, res) {
+  formAction: async function (req, res) {
     try {
       const website = new Website(req.body);
       // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données
@@ -48,10 +48,18 @@ const websiteController = {
     }
   },
 
-  details: async function(req, res, next) {
-    res.render('detail', {
-      website: {},
-    });
+  details: async function (req, res, next) {
+    try {
+      const website = await Website.findPage(req.params.slug);
+      console.log("nous sommes dans le controller detail");
+      console.log(website);
+      res.render('detail', { website: website },
+      );
+      console.log(website);
+    } catch (error) {
+      console.log(error.message);
+      res.render('error');
+    }
   },
 
 };
