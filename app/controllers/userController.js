@@ -12,8 +12,9 @@ const userController = {
       console.log(req.session.userId);
       console.log("affichage de l'id de session?");
       console.log(req.session.id);
+
+      //
       const user = await User.read(req.session.userId);
-      console.log("nous sommes dans le controller profil");
       console.log("affichage de l'objet avant passage des données dans la vue");
       console.log(user);
 
