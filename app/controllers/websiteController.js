@@ -46,7 +46,7 @@ const websiteController = {
       //la methode create va également rajouter une info à mon instance, son id
       await website.create();
       //redirection vers le controller paramétré "details" qui sert la page de détail des sites par URL /tomates/slug de notre nouveau site
-      //mon instance website ici s'est vu rajouté un id par la méthode create
+      //mon instance website ici s'est vue rajouter un id par la méthode create
       res.redirect('/tomates/' + website.slug);
     } catch (error) {
       res.render('add-site', {
