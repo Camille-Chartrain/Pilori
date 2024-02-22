@@ -39,6 +39,7 @@ const websiteController = {
   formAction: async function (req, res) {
     try {
       //instanciation des infos reçues dans la requête
+      //car nous allons appeler une méthode non statique cad une méthode qui a besoin de "this", donc besoin d'une instance à qui fait référence ce "this", dans la méthode.
       const website = new Website(req.body);
       // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données. DONC =>
       //exécution de la fonction create dispo depuis l'instance website (objet) pour enregistrer les infos dans la bdd
