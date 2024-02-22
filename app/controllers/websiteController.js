@@ -39,6 +39,7 @@ const websiteController = {
   formAction: async function (req, res) {
     try {
       const website = new Website(req.body);
+      await website.create();
       // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données
       res.redirect('/tomates/' + website.slug);
     } catch (error) {
