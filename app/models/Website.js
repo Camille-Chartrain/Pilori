@@ -134,7 +134,7 @@ class Website {
     //on rajoute la propriété user_id à notre instance
     this.#user_id = idSession;
     console.log("affichage de notre instance avec sa nouvelle propriété userId");
-    console.log(Website.userId);
+    //console.log(Website.userId); retrouver cmt afficher objet aux propriétés privées
   }
 
   static async read(id) {

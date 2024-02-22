@@ -52,8 +52,7 @@ const websiteController = {
       console.log(req.session);
       console.log("affichage de l'id de session dans controller formAction");
       console.log(req.session.userId);
-      console.log("affichage de notre instance avec sa nouvelle propriété userId");
-      console.log(Website.userId);
+
 
       res.redirect('/tomates/' + website.slug);
     } catch (error) {
