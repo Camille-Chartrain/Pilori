@@ -44,9 +44,17 @@ const websiteController = {
       // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données. DONC =>
       //exécution de la fonction create dispo depuis l'instance website (objet) pour enregistrer les infos dans la bdd
       //la methode create va également rajouter une info à mon instance, son id
-      await website.create();
+      await website.create(req.session.userId);
+      console.log("nous sommes apres la methode create du controller formaction");
       //redirection vers le controller paramétré "details" qui sert la page de détail des sites par URL /tomates/slug de notre nouveau site
       //mon instance website ici s'est vue rajouter un id par la méthode create
+      console.log("affichage de la session dans controller formAction");
+      console.log(req.session);
+      console.log("affichage de l'id de session dans controller formAction");
+      console.log(req.session.userId);
+      console.log("affichage de notre instance avec sa nouvelle propriété userId");
+      console.log(Website.userId);
+
       res.redirect('/tomates/' + website.slug);
     } catch (error) {
       res.render('add-site', {
