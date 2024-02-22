@@ -102,13 +102,24 @@ class Website {
   }
 
   async create() {
+    //séparation de la requête et de ses valeurs grâce au module pg pour sécuriser la requête, évite les injections de code potentielles des users.
     const text = `
       INSERT INTO website ("title", "slug", "description", "address", "device", "level")
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id;
     `;
     const values = [this.title, this.slug, this.description, this.address, this.device, this.level];
+    //requête qui envoie ces infos en bdd
     const result = await client.query(text, values);
+    console.log("j'affiche ce que la requête a retourné");
+    console.log(result);
+    //  la requête nous retourne un objet, il contient une propriété rows
+    console.log("j'affiche la propriété rows");
+    console.log(result.rows);
+    console.log("j'affiche la valeur de la propriété rows");
+    console.log(result.rows[0].id);
+    //la requête a envoyé les infos en bdd, l'id a été créé automatiquement en bdd, nous allons maintenant le récupérer pour l'associer à notre instance website
+    // comme nous avons écrit "await website.create();" dans notre controller, nous allons jusqu'au bout de l'éxecution de la methode create avant de passer à la ligne suivante, donc l'id sera bien ajouté à l'instance website avant la ligne "res.redirect('/tomates/' + website.slug);".
     this.#id = result.rows[0].id;
   }
 

@@ -38,9 +38,14 @@ const websiteController = {
 
   formAction: async function (req, res) {
     try {
+      //instanciation des infos reçues dans la requête
       const website = new Website(req.body);
+      // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données. DONC =>
+      //exécution de la fonction create dispo depuis l'instance website (objet) pour enregistrer les infos dans la bdd
+      //la methode create va également rajouter une info à mon instance, son id
       await website.create();
-      // todo : c'est bien beau de créer un objet représentant le site, il faudrait aussi le faire persister en base de données
+      //redirection vers le controller paramétré "details" qui sert la page de détail des sites par URL /tomates/slug de notre nouveau site
+      //mon instance website ici s'est vu rajouté un id par la méthode create
       res.redirect('/tomates/' + website.slug);
     } catch (error) {
       res.render('add-site', {
@@ -53,9 +58,11 @@ const websiteController = {
     try {
       const website = await Website.findPage(req.params.slug);
       console.log("nous sommes dans le controller detail");
+      console.log("affichage de l'objet avant passage des données dans la vue");
       console.log(website);
       res.render('detail', { website: website },
       );
+      console.log("affichage de l'objet après passage des données dans la vue");
       console.log(website);
     } catch (error) {
       console.log(error.message);
